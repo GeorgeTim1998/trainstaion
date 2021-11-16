@@ -1,5 +1,6 @@
 # Ruby
 Studing Ruby
+'<<' means add to the end of the array
 
 <!-- По любым орг. вопросам можете писать на friends@thinknetica.com, а по техническим задавать вопросы в чате своим наставникам или на встречах. -->
 
