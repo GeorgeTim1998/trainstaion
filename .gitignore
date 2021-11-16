@@ -6,6 +6,8 @@ bin-release/
 
 # Other files and folders
 .settings/
+.vscode
+test.rb
 
 # Executables
 *.swf
