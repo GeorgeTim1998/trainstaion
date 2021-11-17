@@ -17,12 +17,24 @@ class Station
 
   def trains_type
     puts 'Passanger trains:'
-    train if trains.type.include?('passenger') 
+    trains.each { |train| puts train.inspect if train.type.include?('passanger') }
 
     puts "\n"
 
     puts 'Cargo trains:'
-    train if trains.type.include?('cargo') 
+    trains.each { |train| puts train.inspect if train.type.include?('cargo') }
+    
+    puts "\n"
+  end
+
+  def trains_type_amount
+    trains_amount = trains.count { |train| train.type == 'passanger' }
+    puts "Passanger trains = #{trains_amount}"
+
+    puts "\n"
+
+    puts "Cargo trains = #{trains.length - trains_amount}"
+    #trains.each { |train, num| train[num] += 1 if train.type.include?('cargo') }
   end
 end
 
