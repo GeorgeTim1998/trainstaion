@@ -54,7 +54,8 @@ class Route
 end
 
 class Train
-  attr_reader :speed, :car_amount, :type 
+  attr_reader :type 
+  attr_accessor :speed, :car_amount, :curr_station
 
   def initialize(number, type, car_amount)
     @number = number
@@ -66,16 +67,35 @@ class Train
     self.speed = 0
   end
 
-  def change_car_amount(amount)
-    stop
-    self.car_amount += amount
-  end
+  def change_car_amount(what_to_do)
+    self.stop
+    if what_to_do == 'increment'
+      self.car_amount += 1
+    end
 
-  def accept_route
-    @station = "1st station"
-  end
-
-  # def method_name
+    if what_to_do == 'decrement'
+      self.car_amount -= 1
+    end
     
-  # end
+  end
+
+  def accept_route(route)
+    @route = route.stations
+    self.curr_station = @route[0]
+  end
+
+  def forward
+    index = @route.find_index(self.curr_station)
+    self.curr_station = @route[index + 1]
+  end
+
+  def backward
+    index = @route.find_index(self.curr_station)
+    self.curr_station = @route[index - 1]
+  end
+
+  def show_route
+    index = @route.find_index(self.curr_station)
+    @route[index - 1, 3]
+  end
 end
