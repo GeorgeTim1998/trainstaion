@@ -27,9 +27,29 @@ class Station
 end
 
 class Route
+  attr_reader :stations
+  
   def initialize(departure, destination)
     @departure = departure
     @destination = destination
+    @stations = []
+
+    @stations = [departure, destination]
+  end
+
+  def add_waypoint(waypoint)
+    stations_amount = self.stations.length
+    self.stations.insert(stations_amount - 1, waypoint)
+  end
+
+  def delete_waypoint(waypoint)
+    if (waypoint != @departure) && (waypoint != @destination) 
+      self.stations.delete(waypoint) 
+    end
+  end
+
+  def show_route
+    puts self.stations
   end
 end
 
