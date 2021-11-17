@@ -86,16 +86,37 @@ class Train
 
   def forward
     index = @route.find_index(self.curr_station)
-    self.curr_station = @route[index + 1]
+
+    case index
+    when @route.length - 1
+      puts "Can't go further!"
+    else
+      self.curr_station = @route[index + 1]
+    end
   end
 
   def backward
     index = @route.find_index(self.curr_station)
-    self.curr_station = @route[index - 1]
+
+    case index
+    when 0
+      puts "Can't go further!"
+    else
+      self.curr_station = @route[index - 1]
+    end
   end
 
   def show_route
     index = @route.find_index(self.curr_station)
-    @route[index - 1, 3]
+
+    case index
+    when 0
+      @route[index, 2]
+    when @route.length - 1
+      @route[index - 1, 2]
+    else
+      @route[index - 1, 3]
+    end
+
   end
 end
