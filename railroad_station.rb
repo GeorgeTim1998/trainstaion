@@ -16,7 +16,7 @@ class Station
   end
 
   def trains_type
-    trains.sort_by { |train| train.type }
+    trains.sort_by(&:type)
   end
 
   def trains_type_amount
