@@ -7,7 +7,7 @@ class Station
   end
 
   def arrive(train)
-    self.trains << train
+    trains << train
   end
 
   def depart(train)
@@ -16,7 +16,7 @@ class Station
   end
 
   def trains_type
-    trains.sort_by{|train| train.type}
+    trains.sort_by { |train| train.type }
   end
 
   def trains_type_amount
@@ -27,7 +27,7 @@ end
 
 class Route
   attr_reader :stations
-  
+
   def initialize(departure, destination)
     @departure = departure
     @destination = destination
@@ -37,23 +37,21 @@ class Route
   end
 
   def add_waypoint(waypoint)
-    stations_amount = self.stations.length
-    self.stations.insert(stations_amount - 1, waypoint)
+    stations_amount = stations.length
+    stations.insert(stations_amount - 1, waypoint)
   end
 
   def delete_waypoint(waypoint)
-    if (waypoint != @departure) && (waypoint != @destination) 
-      self.stations.delete(waypoint) 
-    end
+    stations.delete(waypoint) if (waypoint != @departure) && (waypoint != @destination)
   end
 
   def show_route
-    puts self.stations
+    puts stations
   end
 end
 
 class Train
-  attr_reader :type 
+  attr_reader :type
   attr_accessor :speed, :car_amount, :curr_station
 
   def initialize(number, type, car_amount)
@@ -68,7 +66,7 @@ class Train
   end
 
   def change_car_amount(what_to_do)
-    self.stop
+    stop
 
     case what_to_do
     when 1
@@ -76,7 +74,7 @@ class Train
     when -1
       self.car_amount -= 1
     else
-     puts "Don't know what you want from me! Try again)" 
+      puts "Don't know what you want from me! Try again)"
     end
   end
 
@@ -86,7 +84,7 @@ class Train
   end
 
   def forward
-    index = @route.find_index(self.curr_station)
+    index = @route.find_index(curr_station)
 
     case index
     when @route.length - 1
@@ -97,7 +95,7 @@ class Train
   end
 
   def backward
-    index = @route.find_index(self.curr_station)
+    index = @route.find_index(curr_station)
 
     case index
     when 0
@@ -108,7 +106,7 @@ class Train
   end
 
   def show_route
-    index = @route.find_index(self.curr_station)
+    index = @route.find_index(curr_station)
 
     case index
     when 0
@@ -118,6 +116,5 @@ class Train
     else
       @route[index - 1, 3]
     end
-
   end
 end
