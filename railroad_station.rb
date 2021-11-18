@@ -21,7 +21,6 @@ class Station
 
   def trains_type_amount
     trains_amount = trains.count { |train| train.type == 'cargo' }
-
     [trains_amount, trains.length - trains_amount]
   end
 end
@@ -61,6 +60,7 @@ class Train
     @number = number
     @type = type
     @car_amount = car_amount
+    @route = nil
   end
 
   def stop
@@ -69,14 +69,15 @@ class Train
 
   def change_car_amount(what_to_do)
     self.stop
-    if what_to_do == 'increment'
-      self.car_amount += 1
-    end
 
-    if what_to_do == 'decrement'
+    case what_to_do
+    when 1
+      self.car_amount += 1
+    when -1
       self.car_amount -= 1
+    else
+     puts "Don't know what you want from me! Try again)" 
     end
-    
   end
 
   def accept_route(route)

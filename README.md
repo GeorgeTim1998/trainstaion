@@ -28,3 +28,6 @@ Studing Ruby
 
 <!-- git branch -m <branch>
 Изменение имени текущей ветки на ＜ветка＞. -->
+<!-- Shortcuts -->
+cntr+shift+K #delete line
+cntr+shift+arrow #copy line up or down
