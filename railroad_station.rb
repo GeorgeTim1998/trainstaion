@@ -11,16 +11,17 @@ class Station
   end
 
   def depart(train)
-    train.accept_route
     trains.delete(train)
   end
 
   def trains_type
-    trains.sort_by(&:type)
+    trains.sort_by(&:type) 
+    #А почему здесь сортировка? лучше добавить аргумент type к методу и возвращать массив вагонов определенного типа
   end
 
   def trains_type_amount
     trains_amount = trains.count { |train| train.type == 'cargo' }
+    #Тоже самое, массив массивов. Сделай аргумент к методу и все
     [trains_amount, trains.length - trains_amount]
   end
 end
@@ -29,16 +30,15 @@ class Route
   attr_reader :stations
 
   def initialize(departure, destination)
-    @departure = departure
-    @destination = destination
-    @stations = []
-
+    # @departure = departure
+    # @destination = destination
+    # @stations = []
     @stations = [departure, destination]
   end
 
   def add_waypoint(waypoint)
-    stations_amount = stations.length
-    stations.insert(stations_amount - 1, waypoint)
+    # stations_amount = stations.length
+    stations.insert(-2, waypoint)
   end
 
   def delete_waypoint(waypoint)
@@ -65,56 +65,77 @@ class Train
     self.speed = 0
   end
 
-  def change_car_amount(what_to_do)
-    stop
+  # def change_car_amount(what_to_do)
+  #   stop
 
-    case what_to_do
-    when 1
-      self.car_amount += 1
-    when -1
-      self.car_amount -= 1
+  #   case what_to_do
+  #   when 1
+  #     self.car_amount += 1
+  #   when -1
+  #     self.car_amount -= 1
+  #   else
+  #     puts "Don't know what you want from me! Try again)"
+  #   end
+  # end
+
+  def add_car
+    stop
+    self.car_amount += 1
+  end
+
+  def delete_car
+    stop
+    if self.car_amount == 0
+      puts "There is already zero cars! Can't delete cars futher!"
     else
-      puts "Don't know what you want from me! Try again)"
+      self.car_amount += -1
     end
   end
 
   def accept_route(route)
-    @route = route.stations
-    self.curr_station = @route[0]
+    @route = route
+    self.curr_station = @route.stations[0]
   end
 
   def forward
-    index = @route.find_index(curr_station)
+    index = @route.stations.find_index(curr_station)
 
     case index
-    when @route.length - 1
+    when @route.stations.length - 1
       puts "Can't go further!"
     else
-      self.curr_station = @route[index + 1]
+      self.curr_station = @route.stations[index + 1]
     end
   end
 
   def backward
-    index = @route.find_index(curr_station)
+    index = @route.stations.find_index(curr_station)
 
     case index
     when 0
       puts "Can't go further!"
     else
-      self.curr_station = @route[index - 1]
+      self.curr_station = @route.stations[index - 1]
+    end
+  end
+  
+  def prev_station
+    index = @route.stations.find_index(curr_station)
+
+    if index == 0
+      puts "There is no previous station. The train is at the departure!"
+    else
+      @route.stations[index - 1]
     end
   end
 
-  def show_route
-    index = @route.find_index(curr_station)
+  def next_station
+    index = @route.stations.find_index(curr_station)
 
-    case index
-    when 0
-      @route[index, 2]
-    when @route.length - 1
-      @route[index - 1, 2]
+    if index == @route.stations.length - 1
+      puts "There is no next station. The train is at the destination!"
     else
-      @route[index - 1, 3]
+      @route[index + 1]
     end
   end
 end
