@@ -15,12 +15,12 @@ class Station
   end
 
   def trains_by_type(type)
-    trains.select {|train| train.type == type} 
+    trains.select { |train| train.type == type }
   end
-  
+
   def trains_by_type_amount(type)
     puts "Trains of '#{type}' type is:"
-    trains_by_type(type).count 
+    trains_by_type(type).count
   end
 end
 
@@ -66,7 +66,7 @@ class Train
 
   def delete_car
     stop
-    if self.car_amount == 0
+    if self.car_amount.zero?
       puts "There is already zero cars! Can't delete cars futher!"
     else
       self.car_amount += -1
@@ -99,11 +99,11 @@ class Train
       self.curr_station = @route.stations[index - 1]
     end
   end
-  
+
   def prev_station
     index = @route.stations.find_index(curr_station)
 
-    if index == 0
+    if index.zero?
       puts "There is no previous station. The train is at the departure '#{@route.stations[0]}'!"
     else
       @route.stations[index - 1]
