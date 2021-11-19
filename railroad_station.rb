@@ -14,15 +14,13 @@ class Station
     trains.delete(train)
   end
 
-  def trains_type
-    trains.sort_by(&:type) 
-    #А почему здесь сортировка? лучше добавить аргумент type к методу и возвращать массив вагонов определенного типа
+  def trains_by_type(type)
+    trains.select {|train| train.type == type} 
   end
-
-  def trains_type_amount
-    trains_amount = trains.count { |train| train.type == 'cargo' }
-    #Тоже самое, массив массивов. Сделай аргумент к методу и все
-    [trains_amount, trains.length - trains_amount]
+  
+  def trains_by_type_amount(type)
+    puts "Trains of '#{type}' type is:"
+    trains_by_type(type).count 
   end
 end
 
@@ -30,14 +28,10 @@ class Route
   attr_reader :stations
 
   def initialize(departure, destination)
-    # @departure = departure
-    # @destination = destination
-    # @stations = []
     @stations = [departure, destination]
   end
 
   def add_waypoint(waypoint)
-    # stations_amount = stations.length
     stations.insert(-2, waypoint)
   end
 
@@ -64,19 +58,6 @@ class Train
   def stop
     self.speed = 0
   end
-
-  # def change_car_amount(what_to_do)
-  #   stop
-
-  #   case what_to_do
-  #   when 1
-  #     self.car_amount += 1
-  #   when -1
-  #     self.car_amount -= 1
-  #   else
-  #     puts "Don't know what you want from me! Try again)"
-  #   end
-  # end
 
   def add_car
     stop
@@ -123,7 +104,7 @@ class Train
     index = @route.stations.find_index(curr_station)
 
     if index == 0
-      puts "There is no previous station. The train is at the departure!"
+      puts "There is no previous station. The train is at the departure '#{@route.stations[0]}'!"
     else
       @route.stations[index - 1]
     end
@@ -133,9 +114,9 @@ class Train
     index = @route.stations.find_index(curr_station)
 
     if index == @route.stations.length - 1
-      puts "There is no next station. The train is at the destination!"
+      puts "There is no next station. The train is at the destination '#{@route.stations[-1]}'!"
     else
-      @route[index + 1]
+      @route.stations[index + 1]
     end
   end
 end
