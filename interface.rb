@@ -1,3 +1,4 @@
+require 'colorize'
 require_relative 'car'
 require_relative 'cargo_car'
 require_relative 'cargo_train'
@@ -10,8 +11,9 @@ require_relative 'train'
 
 class Interface
   attr_accessor :action 
+
   def initialize
-    puts "Do one of the following:\n\n"
+    puts "\nDo one of the following:".blue
     puts "Input '0' to create station;"
     puts "Input '1' to create train;"
     puts "Input '2' to create route;"
@@ -27,11 +29,32 @@ class Interface
     puts "Input '6b' to move train backward;"
     
     puts "Input '7ls' to list available stations;"
-    puts "Input '7lt' to list trains at the station;"
-    
+    puts "Input '7lt' to list trains at the station."
+
+    puts "\n"
+
+    interf_gets
   end
 
-  def inter_gets
+  private 
+  # здесь лежат методы, которые касаются только внутренней логики класса интерфейс:
+  # проверка введенных данных. 
+  
+  ACTIONS = [\
+    '1', '2', '2a', '2b', '3', '4', \
+    '5', '6f', '6b', '7ls', '7lt']
+
+  def interf_gets
     self.action = gets.chomp
+    warning! if not is_action?
+  end
+ 
+  def is_action?
+    ACTIONS.include? self.action
+  end
+
+  def warning!
+    puts "\nWARNING! There is no such action! Try again!".yellow
+    initialize
   end
 end

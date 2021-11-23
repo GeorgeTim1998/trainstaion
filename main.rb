@@ -9,4 +9,3 @@ require_relative 'station'
 require_relative 'train'
 
 i1 = Interface.new()
-i1.inter_gets
