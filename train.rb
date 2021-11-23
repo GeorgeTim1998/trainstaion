@@ -1,11 +1,20 @@
+require_relative 'car'
+require_relative 'cargo_car'
+require_relative 'cargo_train'
+require_relative 'interface'
+require_relative 'passenger_car'
+require_relative 'passenger_train'
+require_relative 'route'
+require_relative 'station'
+require_relative 'train'
+
 class Train
   attr_reader :type
-  attr_accessor :speed, :car_amount, :curr_station
+  attr_accessor :speed, :curr_station
 
-  def initialize(number, type, car_amount)
+  def initialize(number, type)
     @number = number
     @type = type
-    @car_amount = car_amount
     @route = nil
   end
 
@@ -15,16 +24,10 @@ class Train
 
   def add_car
     stop
-    self.car_amount += 1
   end
 
   def delete_car
     stop
-    if self.car_amount.zero?
-      puts "There is already zero cars! Can't delete cars futher!"
-    else
-      self.car_amount += -1
-    end
   end
 
   def accept_route(route)
