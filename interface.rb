@@ -22,28 +22,39 @@ class Interface
   # здесь лежат методы, которые касаются только внутренней логики класса Interface:
   # проверка введенных данных, усправление объектами других классов и т.д. 
   # Пользователь не должен иметь к этому доступ
-  attr_accessor :action, :stations
+  attr_accessor :action, :stations, :trains
   
   def show_commands
     puts "\nDo one of the following:".blue
-    puts "Pass '0' to create station;"
-    puts "Pass '1' to create train;"
-    puts "Pass '2' to create route;"
     
-    puts "\tPass '2a' to add waypoint to route;"
-    puts "\tPass '2d' to delete waypoint from route;"
+    puts "Create station".light_blue
+    puts "\tPass '0' to create station;"
+
+    puts "Create train:".light_blue
+    puts "\tPass '1a' to create cargo train;"
+    puts "\tPass '1b' to create passenger route;"
     
-    puts "Pass '3' to assign route to train;"
-    puts "Pass '4' to add cars to train;"
-    puts "Pass '5' to delete cars from train;"
+    puts "Manage routes:".light_blue
+    puts "\tPass '2a' to create route;"
+    puts "\tPass '2b' to add waypoint to route;"
+    puts "\tPass '2c' to delete a waypoint from route;"
+    puts "\tPass '2d' to assign route to train;"
     
-    puts "Pass '6f' to move train forward;"
-    puts "Pass '6b' to move train backward;"
+    puts "Car managment:".light_blue
+    puts "\tPass '3ac' to add cars to cargo train;"
+    puts "\tPass '3ap' to add cars to passenger train;"
+    puts "\tPass '3bc' to delete cars from cargo train;"
+    puts "\tPass '3bp' to delete cars from passenger train;"
     
-    puts "Pass '7ls' to list available stations;"
-    puts "Pass '7lt' to list trains at the station."
+    puts "Move trains:".light_blue
+    puts "\tPass '4a' to move train forward;"
+    puts "\tPass '4b' to move train backward;"
     
-    puts "Pass 'exit' to stop."
+    puts "Show info:".light_blue
+    puts "\tPass '5a' to list available stations;"
+    puts "\tPass '5b' to list trains at the station."
+    
+    puts "\nPass 'exit' to stop."
     
     puts "\n"
   end
@@ -61,22 +72,25 @@ class Interface
     case self.action
     when '0'
       create_station
-    when '1'
-      create_train
-    when '2'
-      create_toute
+    when '1a'
+      create_cargo_train
+    when '1b'
+      create_pass_train
     when '2a'
-      add_waypoint
+      create_route
     when '2b'
       delete_waypoint
-    when '3'
-    when '4'
-    when '5'
-    when '6f'
-    when '6b'
-    when '7ls'
+    when '2c'
+    when '2d'
+    when '3a'
+    when '3b'
+    when '3c'
+    when '3d'
       list_stations
-    when '7lt'
+    when '4a'
+    when '4b'
+    when '5a'
+    when '5b'
     when 'commands'
       show_commands
     else
@@ -103,6 +117,21 @@ class Interface
     self.stations << Station.new(station_name)
   end
 
+  def create_cargo_train
+    input_train
+    self.trains << CargoTrain.new(self.action)
+  end
+
+  def create_pass_train
+    input_train
+    self.trains << PassengerTrain.new(self.action)
+  end
+
+  def input_train
+    puts "How would you name your train?".blue
+    interface_gets
+  end
+  
   def list_stations
     puts "Stations:".green
     self.stations.each_with_index { |item, index| puts "index: #{index} for #{item.name}"}
