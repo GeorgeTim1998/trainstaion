@@ -14,6 +14,7 @@ class Interface
   def initialize
     @stations = []
     @trains = []
+    @routes = []
     show_commands
     init_action
   end
@@ -22,7 +23,7 @@ class Interface
   # здесь лежат методы, которые касаются только внутренней логики класса Interface:
   # проверка введенных данных, усправление объектами других классов и т.д. 
   # Пользователь не должен иметь к этому доступ
-  attr_accessor :action, :stations, :trains
+  attr_accessor :action, :stations, :trains, :routes
   
   def show_commands
     puts "\nDo one of the following:".blue
@@ -79,9 +80,11 @@ class Interface
     when '2a'
       create_route
     when '2b'
-      delete_waypoint
+      add_waypoint
     when '2c'
+      delete_waypoint
     when '2d'
+      assign_route
     when '3a'
     when '3b'
     when '3c'
@@ -137,7 +140,35 @@ class Interface
     self.stations.each_with_index { |item, index| puts "index: #{index} for #{item.name}"}
   end
 
-  def create_train
-   self.trains << Train.new() 
+  def create_route
+    puts "Input departure:".cyan
+    destination = gets.chomp
+    puts "Input destination:".cyan
+    departure = gets.chomp
+    self.routes << Route.new(destination, departure) 
+  end
+
+  def add_waypoint
+    available_routes
+    
+    puts "Select route to add waypoint to:".cyan
+    route_num = gets.chomp.to_i
+    
+    puts "Input waypoint name".cyan
+    waypoint = gets.chomp
+    
+    self.routes[route_num].add_waypoint(waypoint) if action_possible(self.routes, route_num)
+  end
+
+  def delete_waypoint
+    
+  end
+
+  def available_routes
+    puts "Available routes:".cyan
+    self.routes.each_with_index { |item, index| puts "index: #{index} for #{item.stations}"}
+  end
+  def action_possible(array, number)
+    array.length - 1 >= number and number >= 0
   end
 end
