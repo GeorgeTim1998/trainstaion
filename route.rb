@@ -20,7 +20,7 @@ class Route
   end
 
   def delete_waypoint(waypoint)
-    stations.delete(waypoint) if (waypoint != @departure) && (waypoint != @destination)
+    stations.delete(waypoint) if (waypoint != @stations[0]) and (waypoint != @stations[-1])
   end
 
   def show_route

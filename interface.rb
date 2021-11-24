@@ -176,8 +176,26 @@ class Interface
     puts "Available routes:".cyan
     self.routes.each_with_index { |item, index| puts "index: #{index} for #{item.stations}"}
   end
+  
+  def available_trains
+    puts "Available trains:".cyan
+    self.trains.each_with_index { |item, index| puts "index: #{index} for #{item.inspect}"}
+  end
 
   def action_possible(array, number)
     array.length - 1 >= number and number >= 0
+  end
+
+  def assign_route
+    available_trains
+    available_routes 
+    
+    puts "Select train:".cyan
+    train_num = gets.chomp.to_i
+    puts "Select route:".cyan
+    route_num = gets.chomp.to_i
+
+    @trains[train_num].accept_route(@routes[route_num]) \
+    if action_possible(@trains, train_num) and action_possible(@routes, route_num)
   end
 end
