@@ -150,7 +150,7 @@ class Interface
 
   def add_waypoint
     available_routes
-    
+
     puts "Select route to add waypoint to:".cyan
     route_num = gets.chomp.to_i
     
@@ -161,13 +161,22 @@ class Interface
   end
 
   def delete_waypoint
-    
+    available_routes
+
+    puts "Select route to delete waypoint from:".cyan
+    route_num = gets.chomp.to_i
+
+    puts "Input waypoint name".cyan
+    waypoint = gets.chomp
+
+    self.routes[route_num].delete_waypoint(waypoint) if action_possible(self.routes, route_num)
   end
 
   def available_routes
     puts "Available routes:".cyan
     self.routes.each_with_index { |item, index| puts "index: #{index} for #{item.stations}"}
   end
+
   def action_possible(array, number)
     array.length - 1 >= number and number >= 0
   end
