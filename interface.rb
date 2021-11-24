@@ -91,9 +91,13 @@ class Interface
     when '3d'
       list_stations
     when '4a'
+      train_go
     when '4b'
+      train_back
     when '5a'
+      available_stations
     when '5b'
+      # покажи список станций и выведи список поездов на нем
     when 'commands'
       show_commands
     else
@@ -121,18 +125,16 @@ class Interface
   end
 
   def create_cargo_train
-    input_train
-    self.trains << CargoTrain.new(self.action)
+    self.trains << CargoTrain.new(input_train)
   end
 
   def create_pass_train
-    input_train
-    self.trains << PassengerTrain.new(self.action)
+    self.trains << PassengerTrain.new(input_train)
   end
 
   def input_train
-    puts "How would you name your train?".blue
-    interface_gets
+    puts "How would you name your train?".cyan
+    train = gets.chomp
   end
   
   def list_stations
@@ -197,5 +199,28 @@ class Interface
 
     @trains[train_num].accept_route(@routes[route_num]) \
     if action_possible(@trains, train_num) and action_possible(@routes, route_num)
+  end
+
+  def available_stations
+    puts "Available stations:".cyan
+    self.stations.each_with_index { |item, index| puts "index: #{index} for #{item.name}"}
+  end
+
+  def train_go
+    available_trains
+
+    puts "Select train:".cyan
+    train_num = gets.chomp.to_i
+
+    self.trains[train_num].forward if action_possible(self.trains, train_num)
+  end
+  
+  def train_back
+    available_trains
+  
+    puts "Select train:".cyan
+    train_num = gets.chomp.to_i
+  
+    self.trains[train_num].backward if action_possible(self.trains, train_num)
   end
 end
