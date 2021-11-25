@@ -89,6 +89,7 @@ class Interface
     when '5a'
       available_stations
     when '5b'
+      trains_at_station
       # покажи список станций и выведи список поездов на нем
     when 'commands'
       show_commands
@@ -238,5 +239,15 @@ class Interface
     train_num = gets.chomp.to_i
 
     @trains_type[train_num].add_car if action_possible(@trains_type, train_num)
+  end
+
+  def trains_at_station
+    available_routes
+
+    puts "Select station:".cyan
+    station_select = gets.chomp
+    
+    trains_select = self.trains.select { |train| train.curr_station == station_select }
+    puts trains_select.inspect
   end
 end
