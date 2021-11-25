@@ -8,9 +8,9 @@ class CargoTrain < Train
     @route = nil
   end
 
-  def add_car
+  def add_car(car)
     stop
-    @cars << CargoCar.new
+    @cars << car
   end
 
   DEFAULT_TYPE = 'cargo'

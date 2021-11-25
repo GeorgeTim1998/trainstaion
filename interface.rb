@@ -196,7 +196,7 @@ class Interface
     route_num = gets.chomp.to_i
 
     @trains[train_num].accept_route(@routes[route_num]) \
-    if action_possible(@trains, train_num) and action_possible(@routes, route_num)
+    if action_possible(@trains, train_num) && action_possible(@routes, route_num)
   end
 
   def available_stations
@@ -228,7 +228,7 @@ class Interface
     puts 'Select train:'.cyan
     train_num = gets.chomp.to_i
 
-    @trains_type[train_num].add_car if action_possible(@trains_type, train_num)
+    @trains_type[train_num].add_car(CargoCar.new) if action_possible(@trains_type, train_num)
   end
 
   def add_cars_to_pass
@@ -237,7 +237,7 @@ class Interface
     puts 'Select train:'.cyan
     train_num = gets.chomp.to_i
 
-    @trains_type[train_num].add_car if action_possible(@trains_type, train_num)
+    @trains_type[train_num].add_car(PassCar.new) if action_possible(@trains_type, train_num)
   end
 
   def trains_at_station

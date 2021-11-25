@@ -7,9 +7,9 @@ class PassengerTrain < Train
     @route = nil
   end
 
-  def add_car
+  def add_car(car)
     stop
-    @cars << PassCar.new
+    @cars << car
   end
 
   DEFAULT_TYPE = 'passenger'
