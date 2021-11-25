@@ -15,6 +15,7 @@ class Train
   def initialize(number, type)
     @number = number
     @type = type
+    @cars = []
     @route = nil
   end
 
@@ -22,12 +23,14 @@ class Train
     self.speed = 0
   end
 
-  def add_car
+  def add_car(type)
     stop
+    @cars << Car.new(type)
   end
 
-  def delete_car
+  def delete_car(car)
     stop
+    @cars.delete(car)
   end
 
   def accept_route(route)

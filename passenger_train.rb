@@ -15,5 +15,15 @@ class PassengerTrain < Train
     @route = nil
   end
 
+  def add_car
+    stop
+    @cars << PassCar.new
+  end
+
+  def delete_car(car)
+    stop
+    @cars.delete(car)
+  end
+
   DEFAULT_TYPE = 'passenger'
 end

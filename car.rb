@@ -8,3 +8,10 @@ require_relative 'route'
 require_relative 'station'
 require_relative 'train'
 
+class Car
+  protected # с этими методами взаимодействует только класс Interface. От пользователя надо отгородиться
+  
+  def initialize(type)
+    @type = type
+  end
+end

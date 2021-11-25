@@ -86,10 +86,13 @@ class Interface
     when '2d'
       assign_route
     when '3a'
+      add_cars_to_cargo
     when '3b'
+      add_cars_to_pass
     when '3c'
+      del_cars_to_cargo
     when '3d'
-      list_stations
+      del_cars_to_cargo
     when '4a'
       train_go
     when '4b'
