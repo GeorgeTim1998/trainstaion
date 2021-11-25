@@ -79,9 +79,9 @@ class Interface
     when '3ap'
       add_cars_to_pass
     when '3bc'
-      del_cars_to_cargo
+      del_cars_from_cargo
     when '3bp'
-      del_cars_to_cargo
+      del_cars_from_pass
     when '4a'
       train_go
     when '4b'
@@ -90,7 +90,6 @@ class Interface
       available_stations
     when '5b'
       trains_at_station
-      # покажи список станций и выведи список поездов на нем
     when 'commands'
       show_commands
     else
@@ -246,8 +245,26 @@ class Interface
 
     puts "Select station:".cyan
     station_select = gets.chomp
-    
+
     trains_select = self.trains.select { |train| train.curr_station == station_select }
     puts trains_select.inspect
+  end
+
+  def del_cars_from_cargo
+    available_trains_type('cargo')
+
+    puts "Select train:".cyan
+    train_num = gets.chomp.to_i
+3bc
+    @trains_type[train_num].delete_car if action_possible(@trains_type, train_num)
+  end
+  
+  def del_cars_from_pass
+    available_trains_type('passenger')
+
+    puts "Select train:".cyan
+    train_num = gets.chomp.to_i
+
+    @trains_type[train_num].delete_car if action_possible(@trains_type, train_num)
   end
 end

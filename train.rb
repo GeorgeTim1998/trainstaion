@@ -1,5 +1,3 @@
-
-
 class Train
   attr_reader :type
   attr_accessor :speed, :curr_station
@@ -20,9 +18,9 @@ class Train
     @cars << Car.new(type)
   end
 
-  def delete_car(car)
+  def delete_car
     stop
-    @cars.delete(car)
+    @cars.delete(@cars[-1])
   end
 
   def accept_route(route)

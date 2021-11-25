@@ -13,10 +13,5 @@ class CargoTrain < Train
     @cars << CargoCar.new
   end
 
-  def delete_car(car)
-    stop
-    @cars.delete(car)
-  end
-
   DEFAULT_TYPE = 'cargo'
 end
