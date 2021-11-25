@@ -1,5 +1,4 @@
 class Interface
-  
   def initialize
     @stations = []
     @trains = []
@@ -255,7 +254,7 @@ class Interface
 
     puts "Select train:".cyan
     train_num = gets.chomp.to_i
-3bc
+    
     @trains_type[train_num].delete_car if action_possible(@trains_type, train_num)
   end
   
