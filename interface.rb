@@ -6,59 +6,60 @@ class Interface
     show_commands
     init_action
   end
-  
-  private 
+
+  private
+
   # здесь лежат методы, которые касаются только внутренней логики класса Interface:
-  # проверка введенных данных, усправление объектами других классов и т.д. 
+  # проверка введенных данных, усправление объектами других классов и т.д.
   # Пользователь не должен иметь к этому доступ
   attr_accessor :action, :stations, :trains, :routes
-  
+
   def show_commands
     puts "\nDo one of the following:".blue
-    
-    puts "Create station".light_blue
+
+    puts 'Create station'.light_blue
     puts "\tPass '0' to create station;"
 
-    puts "Create train:".light_blue
+    puts 'Create train:'.light_blue
     puts "\tPass '1a' to create cargo train;"
     puts "\tPass '1b' to create passenger train;"
-    
-    puts "Manage routes:".light_blue
+
+    puts 'Manage routes:'.light_blue
     puts "\tPass '2a' to create route;"
     puts "\tPass '2b' to add waypoint to route;"
     puts "\tPass '2c' to delete a waypoint from route;"
     puts "\tPass '2d' to assign route to train;"
-    
-    puts "Car managment:".light_blue
+
+    puts 'Car managment:'.light_blue
     puts "\tPass '3ac' to add cars to cargo train;"
     puts "\tPass '3ap' to add cars to passenger train;"
     puts "\tPass '3bc' to delete cars from cargo train;"
     puts "\tPass '3bp' to delete cars from passenger train;"
-    
-    puts "Move trains:".light_blue
+
+    puts 'Move trains:'.light_blue
     puts "\tPass '4a' to move train forward;"
     puts "\tPass '4b' to move train backward;"
-    
-    puts "Show info:".light_blue
+
+    puts 'Show info:'.light_blue
     puts "\tPass '5a' to list available stations;"
     puts "\tPass '5b' to list trains at the station."
-    
+
     puts "\nPass 'exit' to stop."
-    
+
     puts "\n"
   end
 
-  
   def init_action
     loop do
       interface_gets
       break if exit?
+
       do_action
     end
   end
 
   def do_action
-    case self.action
+    case action
     when '0'
       create_station
     when '1a'
@@ -100,9 +101,9 @@ class Interface
     puts 'Your action is: '.blue
     self.action = gets.chomp
   end
-  
+
   def exit?
-    self.action == 'exit'
+    action == 'exit'
   end
 
   def warning!
@@ -110,75 +111,75 @@ class Interface
   end
 
   def create_station
-    puts "Input stations name:".light_blue
+    puts 'Input stations name:'.light_blue
     station_name = gets.chomp
-    self.stations << Station.new(station_name)
+    stations << Station.new(station_name)
   end
 
   def create_cargo_train
-    self.trains << CargoTrain.new(input_train)
+    trains << CargoTrain.new(input_train)
   end
 
   def create_pass_train
-    self.trains << PassengerTrain.new(input_train)
+    trains << PassengerTrain.new(input_train)
   end
 
   def input_train
-    puts "How would you name your train?".cyan
+    puts 'How would you name your train?'.cyan
     train = gets.chomp
   end
-  
+
   def list_stations
-    puts "Stations:".green
-    self.stations.each_with_index { |item, index| puts "index: #{index} for #{item.name}"}
+    puts 'Stations:'.green
+    stations.each_with_index { |item, index| puts "index: #{index} for #{item.name}" }
   end
 
   def create_route
-    puts "Input departure:".cyan
+    puts 'Input departure:'.cyan
     destination = gets.chomp
-    puts "Input destination:".cyan
+    puts 'Input destination:'.cyan
     departure = gets.chomp
-    self.routes << Route.new(destination, departure) 
+    routes << Route.new(destination, departure)
   end
 
   def add_waypoint
     available_routes
 
-    puts "Select route to add waypoint to:".cyan
+    puts 'Select route to add waypoint to:'.cyan
     route_num = gets.chomp.to_i
-    
-    puts "Input waypoint name".cyan
+
+    puts 'Input waypoint name'.cyan
     waypoint = gets.chomp
-    
-    self.routes[route_num].add_waypoint(waypoint) if action_possible(self.routes, route_num)
+
+    routes[route_num].add_waypoint(waypoint) if action_possible(routes, route_num)
   end
 
   def delete_waypoint
     available_routes
 
-    puts "Select route to delete waypoint from:".cyan
+    puts 'Select route to delete waypoint from:'.cyan
     route_num = gets.chomp.to_i
 
-    puts "Input waypoint name".cyan
+    puts 'Input waypoint name'.cyan
     waypoint = gets.chomp
 
-    self.routes[route_num].delete_waypoint(waypoint) if action_possible(self.routes, route_num)
+    routes[route_num].delete_waypoint(waypoint) if action_possible(routes, route_num)
   end
 
   def available_routes
-    puts "Available routes:".cyan
-    self.routes.each_with_index { |item, index| puts "index: #{index} for #{item.stations}"}
+    puts 'Available routes:'.cyan
+    routes.each_with_index { |item, index| puts "index: #{index} for #{item.stations}" }
   end
-  
+
   def available_trains
-    puts "Available trains:".cyan
-    self.trains.each_with_index { |item, index| puts "index: #{index} for #{item.inspect}"}
+    puts 'Available trains:'.cyan
+    trains.each_with_index { |item, index| puts "index: #{index} for #{item.inspect}" }
   end
 
   def available_trains_type(type)
     puts "Available '#{type}' trains:".cyan
     @trains_type = trains.select { |train| train.type == type }
-    @trains_type.each_with_index { |item, index| puts "index: #{index} for #{item.inspect}"}
+    @trains_type.each_with_index { |item, index| puts "index: #{index} for #{item.inspect}" }
   end
 
   def action_possible(array, number)
@@ -187,11 +188,11 @@ class Interface
 
   def assign_route
     available_trains
-    available_routes 
-    
-    puts "Select train:".cyan
+    available_routes
+
+    puts 'Select train:'.cyan
     train_num = gets.chomp.to_i
-    puts "Select route:".cyan
+    puts 'Select route:'.cyan
     route_num = gets.chomp.to_i
 
     @trains[train_num].accept_route(@routes[route_num]) \
@@ -199,32 +200,32 @@ class Interface
   end
 
   def available_stations
-    puts "Available stations:".cyan
-    self.stations.each_with_index { |item, index| puts "index: #{index} for #{item.name}"}
+    puts 'Available stations:'.cyan
+    stations.each_with_index { |item, index| puts "index: #{index} for #{item.name}" }
   end
 
   def train_go
     available_trains
 
-    puts "Select train:".cyan
+    puts 'Select train:'.cyan
     train_num = gets.chomp.to_i
 
-    self.trains[train_num].forward if action_possible(self.trains, train_num)
+    trains[train_num].forward if action_possible(trains, train_num)
   end
-  
+
   def train_back
     available_trains
-  
-    puts "Select train:".cyan
+
+    puts 'Select train:'.cyan
     train_num = gets.chomp.to_i
-  
-    self.trains[train_num].backward if action_possible(self.trains, train_num)
+
+    trains[train_num].backward if action_possible(trains, train_num)
   end
 
   def add_cars_to_cargo
     available_trains_type('cargo')
-    
-    puts "Select train:".cyan
+
+    puts 'Select train:'.cyan
     train_num = gets.chomp.to_i
 
     @trains_type[train_num].add_car if action_possible(@trains_type, train_num)
@@ -232,8 +233,8 @@ class Interface
 
   def add_cars_to_pass
     available_trains_type('passenger')
-    
-    puts "Select train:".cyan
+
+    puts 'Select train:'.cyan
     train_num = gets.chomp.to_i
 
     @trains_type[train_num].add_car if action_possible(@trains_type, train_num)
@@ -242,26 +243,26 @@ class Interface
   def trains_at_station
     available_routes
 
-    puts "Select station:".cyan
+    puts 'Select station:'.cyan
     station_select = gets.chomp
 
-    trains_select = self.trains.select { |train| train.curr_station == station_select }
+    trains_select = trains.select { |train| train.curr_station == station_select }
     puts trains_select.inspect
   end
 
   def del_cars_from_cargo
     available_trains_type('cargo')
 
-    puts "Select train:".cyan
+    puts 'Select train:'.cyan
     train_num = gets.chomp.to_i
-    
+
     @trains_type[train_num].delete_car if action_possible(@trains_type, train_num)
   end
-  
+
   def del_cars_from_pass
     available_trains_type('passenger')
 
-    puts "Select train:".cyan
+    puts 'Select train:'.cyan
     train_num = gets.chomp.to_i
 
     @trains_type[train_num].delete_car if action_possible(@trains_type, train_num)
