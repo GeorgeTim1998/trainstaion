@@ -1,14 +1,3 @@
-require 'colorize'
-require_relative 'car'
-require_relative 'cargo_car'
-require_relative 'cargo_train'
-require_relative 'interface'
-require_relative 'passenger_car'
-require_relative 'passenger_train'
-require_relative 'route'
-require_relative 'station'
-require_relative 'train'
-
 class Interface
   
   def initialize
@@ -33,7 +22,7 @@ class Interface
 
     puts "Create train:".light_blue
     puts "\tPass '1a' to create cargo train;"
-    puts "\tPass '1b' to create passenger route;"
+    puts "\tPass '1b' to create passenger train;"
     
     puts "Manage routes:".light_blue
     puts "\tPass '2a' to create route;"
@@ -85,13 +74,13 @@ class Interface
       delete_waypoint
     when '2d'
       assign_route
-    when '3a'
+    when '3ac'
       add_cars_to_cargo
-    when '3b'
+    when '3ap'
       add_cars_to_pass
-    when '3c'
+    when '3bc'
       del_cars_to_cargo
-    when '3d'
+    when '3bp'
       del_cars_to_cargo
     when '4a'
       train_go
@@ -187,6 +176,12 @@ class Interface
     self.trains.each_with_index { |item, index| puts "index: #{index} for #{item.inspect}"}
   end
 
+  def available_trains_type(type)
+    puts "Available '#{type}' trains:".cyan
+    @trains_type = trains.select { |train| train.type == type }
+    @trains_type.each_with_index { |item, index| puts "index: #{index} for #{item.inspect}"}
+  end
+
   def action_possible(array, number)
     array.length - 1 >= number and number >= 0
   end
@@ -225,5 +220,23 @@ class Interface
     train_num = gets.chomp.to_i
   
     self.trains[train_num].backward if action_possible(self.trains, train_num)
+  end
+
+  def add_cars_to_cargo
+    available_trains_type('cargo')
+    
+    puts "Select train:".cyan
+    train_num = gets.chomp.to_i
+
+    @trains_type[train_num].add_car if action_possible(@trains_type, train_num)
+  end
+
+  def add_cars_to_pass
+    available_trains_type('passenger')
+    
+    puts "Select train:".cyan
+    train_num = gets.chomp.to_i
+
+    @trains_type[train_num].add_car if action_possible(@trains_type, train_num)
   end
 end
