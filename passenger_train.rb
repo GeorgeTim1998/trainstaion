@@ -7,10 +7,5 @@ class PassengerTrain < Train
     @route = nil
   end
 
-  def add_car(car)
-    stop
-    @cars << car
-  end
-
   DEFAULT_TYPE = 'passenger'
 end

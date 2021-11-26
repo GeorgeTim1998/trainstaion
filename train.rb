@@ -13,9 +13,9 @@ class Train
     self.speed = 0
   end
 
-  def add_car(type)
+  def add_car(car)
     stop
-    @cars << Car.new(type)
+    @cars << car if same_type(car)
   end
 
   def delete_car
@@ -54,5 +54,9 @@ class Train
     else
       @route.stations[index + 1]
     end
+  end
+
+  def same_type(car)
+    @type == car.type
   end
 end

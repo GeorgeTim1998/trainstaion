@@ -39,6 +39,18 @@ cntr+shift+K
 <!-- copy line up or down -->
 cntr+shift+arrow 
 
+## Lesson 1. Foundation of object OOP
+
+Let’s say that you have a class with instance variables & you want to expose them to the outside world.
+How?
+You have to define a method.
+Only methods can access instance variables.
+Why?
+Because you’ll get an error if you don’t do this.
+
+hence
+
+<!-- attr_reader, attr_writer, attr_acessor -->
 ## Lesson 2. Interfaces, Iheritance, Polyformism
 
 <!-- key word: public -->
