@@ -1,6 +1,9 @@
+require_relative 'manufacturer_module'
 class Train
   attr_reader :type
   attr_accessor :speed, :curr_station
+
+  include Manufacturer
 
   def initialize(number, type)
     @number = number
