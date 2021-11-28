@@ -1,15 +1,22 @@
 require_relative 'manufacturer_module'
 class Train
-  attr_reader :type
+  attr_reader :type, :number
   attr_accessor :speed, :curr_station
 
   include Manufacturer
+
+  @@all_trains = []
+
+  def self.find(number)
+    @@all_trains.find { |train| train.number == number }
+  end
 
   def initialize(number, type)
     @number = number
     @type = type
     @cars = []
     @route = nil
+    @@all_trains << self
   end
 
   def stop

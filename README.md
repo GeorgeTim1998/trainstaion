@@ -40,6 +40,8 @@ Studing Ruby
 cntr+shift+K 
 <!-- copy line up or down -->
 cntr+shift+arrow 
+<!-- Add cursor up/down -->
+shift+alt+arrow #esc to cansel
 
 ## Lesson 1. Foundation of object OOP
 
