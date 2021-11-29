@@ -15,3 +15,6 @@ Lint/UselessAssignment:
 
 Layout/TrailingEmptyLines:
   Enabled: false
+
+Layout/TrailingWhitespace:
+  Enabled: false
