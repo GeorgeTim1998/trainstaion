@@ -1,6 +1,14 @@
+require_relative 'instance_counter'
 class Station
+  extend InstanceCount::ClassMethods
+  include InstanceCount::InstanceMethods
   attr_reader :trains, :name
-
+  
+  class << self
+    attr_accessor :count
+  end
+  
+  @count = 0
   @@all_stations = []
 
   def self.all

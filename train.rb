@@ -11,9 +11,9 @@ class Train
   class << self
     attr_accessor :count
   end
-
-  @@all_trains = []
+  
   @count = 0
+  @@all_trains = []
   
   def self.find(number)
     @@all_trains.find { |train| train.number == number }
@@ -78,5 +78,4 @@ class Train
   def same_type(car)
     @type == car.type
   end
-
 end

@@ -6,6 +6,7 @@ module InstanceCount
   end
 
   module InstanceMethods
+    protected
     
     def register_instance
       self.class.count += 1
