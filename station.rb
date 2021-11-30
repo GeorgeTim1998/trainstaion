@@ -8,7 +8,6 @@ class Station
     attr_accessor :count
   end
   
-  @count = 0
   @@all_stations = []
 
   def self.all

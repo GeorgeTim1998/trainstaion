@@ -12,7 +12,6 @@ class Train
     attr_accessor :count
   end
   
-  @count = 0
   @@all_trains = []
   
   def self.find(number)

@@ -7,7 +7,6 @@ class Route
     attr_accessor :count
   end
   
-  @count = 0
   attr_reader :stations
 
   def initialize(departure, destination)

@@ -115,3 +115,8 @@ self.class.<имя_метода_класса>
     Чтобы подключить такие модули в классе нужно добавлять '::' после названия родительского метода
     
     Есть упрощенный способ подключения модулей. (программа пише т саму себя). Не писать длинные контрукции для подключения 
+<!-- Условный оператор ||= -->
+a ||= b is a conditional assignment operator. It means:
+
+if a is undefined or falsey, then evaluate b and set a to the result.
+Otherwise (if a is defined and evaluates to truthy), then b is not evaluated, and no assignment takes place.

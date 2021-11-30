@@ -1,7 +1,7 @@
 module InstanceCount
   module ClassMethods
     def instances
-      @count
+      @count ||= 0
     end
   end
 
@@ -9,6 +9,7 @@ module InstanceCount
     protected
     
     def register_instance
+      self.class.count ||= 0
       self.class.count += 1
     end
   end
