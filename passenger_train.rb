@@ -5,6 +5,7 @@ class PassengerTrain < Train
     @type = DEFAULT_TYPE
     @cars = []
     @route = nil
+    register_instance
   end
 
   DEFAULT_TYPE = 'passenger'

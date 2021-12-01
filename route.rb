@@ -1,4 +1,12 @@
+require_relative 'instance_counter'
 class Route
+  extend InstanceCount::ClassMethods
+  include InstanceCount::InstanceMethods
+  
+  class << self
+    attr_accessor :count
+  end
+  
   attr_reader :stations
 
   def initialize(departure, destination)
