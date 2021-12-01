@@ -31,7 +31,7 @@ Studing Ruby
 ## About git
 <!-- git branch -m <branch> -->
 Изменение имени текущей ветки на ＜ветка＞.
-<!-- it checkout -b <new_branch>  <old_branch> -->
+<!-- git checkout -b <new_branch>  <old_branch> -->
 создать новую ветку и скопировать туда данные из старой
 
 ## Shortcuts
