@@ -33,6 +33,8 @@ Studing Ruby
 Изменение имени текущей ветки на ＜ветка＞.
 <!-- git checkout -b <new_branch>  <old_branch> -->
 создать новую ветку и скопировать туда данные из старой
+<!-- git branch -d <branch-name> -->
+удалить локалльную ветку
 
 ## Shortcuts
 
@@ -120,3 +122,37 @@ a ||= b is a conditional assignment operator. It means:
 
 if a is undefined or falsey, then evaluate b and set a to the result.
 Otherwise (if a is defined and evaluates to truthy), then b is not evaluated, and no assignment takes place.
+
+## Exceptions 
+
+begin
+...
+rescue Exception (баз класс для всех ошибок) => NAME (название переменной где будет объект ошибки)
+end
+
+методы объекта NAME:
+massage
+backtrace (лог, как ошибка возникла)
+inspect
+
+Еще есть raise
+    raise <ErrorName> (она отправляет в begin обработки ошибки)
+
+Есть еще retry (повторяет выполнение с бегин)
+
+begin
+...
+rescue
+...
+ensure (выполняется в любом случае)
+..
+end
+
+<!-- Для валидаций данных: -->
+задача регулярных выражений через '/<символы>/'
+e.g.: example = /.*/
+\d - число
+* - необязательный символ
+. - как минимум один символ
+совпадение строки с регулярным выражением через  '=~', не совпадение: !~
+rubular.com посмотреть регулярные выражения
