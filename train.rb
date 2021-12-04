@@ -5,6 +5,7 @@ class Train
   attr_accessor :speed, :curr_station
   
   NUMBER_FORMAT = /(^[a-z\d]{3}$|^[a-z\d]{3}-{1}[a-z\d]{2})/
+  TYPE_FORMAT = /^cargo$|^passenger$/
   include Manufacturer
   extend InstanceCount::ClassMethods
   include InstanceCount::InstanceMethods
@@ -31,6 +32,7 @@ class Train
   
   def validate!
     raise 'Incorrect number format' if @number !~ NUMBER_FORMAT
+    raise 'Incorrect type' if @type !~ TYPE_FORMAT 
   end
 
   def valid?
