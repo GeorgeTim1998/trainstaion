@@ -6,11 +6,23 @@ class Route
   class << self
     attr_accessor :count
   end
-  
+  NAME_LENGTH = 4
   attr_reader :stations
 
   def initialize(departure, destination)
     @stations = [departure, destination]
+    validate!
+  end
+
+  def validate!
+    raise "Incorrect name length. Must be >= #{NAME_LENGTH}" if @stations[0].length < NAME_LENGTH || @stations[1].length < NAME_LENGTH
+  end
+
+  def valid?
+    validate!
+    true
+  rescue RuntimeError
+    false
   end
 
   def add_waypoint(waypoint)
