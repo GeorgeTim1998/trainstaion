@@ -4,7 +4,7 @@ class Station
   include InstanceCount::InstanceMethods
   
   attr_reader :trains, :name
-  
+  NAME_LENGTH = 6
   class << self
     attr_accessor :count
   end
@@ -18,7 +18,19 @@ class Station
   def initialize(name)
     @name = name
     @trains = []
+    validate!
     @@all_stations << self
+  end
+
+  def validate!
+    raise 'Incorrect name length' if @name.length != NAME_LENGTH
+  end
+
+  def valid?
+    validate!
+    true
+  rescue RuntimeError
+    false
   end
 
   def arrive(train)
