@@ -4,6 +4,7 @@ class Train
   attr_reader :type, :number
   attr_accessor :speed, :curr_station
   
+  NUMBER_FORMAT = /(^[a-z\d]{3}$|^[a-z\d]{3}-{1}[a-z\d]{2})/
   include Manufacturer
   extend InstanceCount::ClassMethods
   include InstanceCount::InstanceMethods
@@ -24,9 +25,21 @@ class Train
     @cars = []
     @route = nil
     @@all_trains << self
+    validate!
     register_instance
   end
   
+  def validate!
+    raise 'Incorrect number format' if @number !~ NUMBER_FORMAT
+  end
+
+  def valid?
+    validate!
+    true
+  rescue RuntimeError
+    false
+  end
+
   def stop
     self.speed = 0
   end
