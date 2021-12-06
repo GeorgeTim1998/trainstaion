@@ -114,32 +114,48 @@ class Interface
     puts 'Input stations name:'.light_blue
     station_name = gets.chomp
     stations << Station.new(station_name)
+    puts "Station #{stations[-1].inspect} created!".green
+  rescue RuntimeError => e
+    puts e.inspect
+    retry
   end
-
+  
   def create_cargo_train
     trains << CargoTrain.new(input_train)
+    puts "Cargo train #{trains[-1].inspect} created!".green
+  rescue RuntimeError => e
+    puts e.inspect
+    retry
   end
-
+  
   def create_pass_train
     trains << PassengerTrain.new(input_train)
+    puts "Passenger train #{trains[-1].inspect} created!".green
+  rescue RuntimeError => e
+    puts e.inspect
+    retry
   end
-
+  
   def input_train
     puts 'How would you name your train?'.cyan
     train = gets.chomp
   end
-
+  
   def list_stations
     puts 'Stations:'.green
     stations.each_with_index { |item, index| puts "index: #{index} for #{item.name}" }
   end
-
+  
   def create_route
     puts 'Input departure:'.cyan
     destination = gets.chomp
     puts 'Input destination:'.cyan
     departure = gets.chomp
     routes << Route.new(destination, departure)
+    puts "Route #{routes[-1].inspect} created!".green
+  rescue RuntimeError => e
+    puts e.inspect
+    retry
   end
 
   def add_waypoint

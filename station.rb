@@ -47,8 +47,8 @@ class Station
   end
   
   protected
-  
+
   def validate!
-    raise 'Incorrect name length' if @name.length != NAME_LENGTH
+    raise "Incorrect name length. Must be exactly #{NAME_LENGTH} characters long." if @name.length != NAME_LENGTH
   end
 end
