@@ -5,6 +5,7 @@ class CargoTrain < Train
     @type = DEFAULT_TYPE
     @cars = []
     @route = nil
+    validate!
     register_instance
   end
 
