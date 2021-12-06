@@ -21,11 +21,7 @@ class Station
     validate!
     @@all_stations << self
   end
-
-  def validate!
-    raise 'Incorrect name length' if @name.length != NAME_LENGTH
-  end
-
+  
   def valid?
     validate!
     true
@@ -36,17 +32,23 @@ class Station
   def arrive(train)
     trains << train
   end
-
+  
   def depart(train)
     trains.delete(train)
   end
-
+  
   def trains_by_type(type)
     trains.select { |train| train.type == type }
   end
-
+  
   def trains_by_type_amount(type)
     puts "Trains of '#{type}' type is:"
     trains_by_type(type).count
+  end
+  
+  protected
+  
+  def validate!
+    raise 'Incorrect name length' if @name.length != NAME_LENGTH
   end
 end

@@ -30,18 +30,13 @@ class Train
     register_instance
   end
   
-  def validate!
-    raise 'Incorrect number format' if @number !~ NUMBER_FORMAT
-    raise 'Incorrect type' if @type !~ TYPE_FORMAT 
-  end
-
   def valid?
     validate!
     true
   rescue RuntimeError
     false
   end
-
+  
   def stop
     self.speed = 0
   end
@@ -68,7 +63,7 @@ class Train
   def backward
     self.curr_station = prev_station if prev_station
   end
-
+  
   def prev_station
     index = @route.stations.find_index(curr_station)
     
@@ -91,5 +86,12 @@ class Train
   
   def same_type(car)
     @type == car.type
+  end
+  
+  protected
+
+  def validate!
+    raise 'Incorrect number format' if @number !~ NUMBER_FORMAT
+    raise 'Incorrect type' if @type !~ TYPE_FORMAT 
   end
 end

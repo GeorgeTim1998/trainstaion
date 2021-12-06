@@ -1,4 +1,4 @@
-
+require_relative 'car'
 
 class CargoCar < Car
 # с этими методами взаимодействует только класс Interface. От пользователя надо отгородиться
