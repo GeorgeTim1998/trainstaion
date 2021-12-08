@@ -238,22 +238,28 @@ class Interface
     trains[train_num].backward if action_possible(trains, train_num)
   end
 
-  def add_cars_to_cargo
+  def add_cars_to_cargo(volume)
     available_trains_type('cargo')
 
     puts 'Select train:'.cyan
     train_num = gets.chomp.to_i
 
-    @trains_type[train_num].add_car(CargoCar.new) if action_possible(@trains_type, train_num)
+    @trains_type[train_num].add_car(CargoCar.new(volume)) if action_possible(@trains_type, train_num)
+  rescue RuntimeError => e
+    puts e.inspect
+    retry
   end
 
-  def add_cars_to_pass
+  def add_cars_to_pass(seats_amount)
     available_trains_type('passenger')
 
     puts 'Select train:'.cyan
     train_num = gets.chomp.to_i
 
-    @trains_type[train_num].add_car(PassCar.new) if action_possible(@trains_type, train_num)
+    @trains_type[train_num].add_car(PassCar.new(seats_amount)) if action_possible(@trains_type, train_num)
+  rescue RuntimeError => e
+    puts e.inspect
+    retry
   end
 
   def trains_at_station
