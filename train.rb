@@ -88,6 +88,10 @@ class Train
     @type == car.type
   end
   
+  def all_cars(&block)
+    @cars.each { |train| yield(train) if block_given? }
+  end 
+
   protected
 
   def validate!
