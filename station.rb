@@ -4,6 +4,7 @@ class Station
   include InstanceCount::InstanceMethods
   
   attr_reader :trains, :name
+
   NAME_LENGTH = 6
   class << self
     attr_accessor :count
@@ -28,6 +29,10 @@ class Station
   rescue RuntimeError
     false
   end
+
+  def all_trains(&block)
+    @trains.each { |train| yield(train) if block_given? }
+  end 
 
   def arrive(train)
     trains << train
