@@ -18,3 +18,9 @@ Layout/TrailingEmptyLines:
 
 Layout/TrailingWhitespace:
   Enabled: false
+
+Lint/EmptyFile:
+  Enabled: false
+
+Style/MutableConstant:
+  Enabled: false

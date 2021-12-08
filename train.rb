@@ -4,6 +4,8 @@ class Train
   attr_reader :type, :number
   attr_accessor :speed, :curr_station
   
+  NUMBER_FORMAT = /(^[a-z\d]{3}$|^[a-z\d]{3}-{1}[a-z\d]{2})/
+  TYPE_FORMAT = /^cargo$|^passenger$/
   include Manufacturer
   extend InstanceCount::ClassMethods
   include InstanceCount::InstanceMethods
@@ -24,7 +26,15 @@ class Train
     @cars = []
     @route = nil
     @@all_trains << self
+    validate!
     register_instance
+  end
+  
+  def valid?
+    validate!
+    true
+  rescue RuntimeError
+    false
   end
   
   def stop
@@ -53,7 +63,7 @@ class Train
   def backward
     self.curr_station = prev_station if prev_station
   end
-
+  
   def prev_station
     index = @route.stations.find_index(curr_station)
     
@@ -76,5 +86,12 @@ class Train
   
   def same_type(car)
     @type == car.type
+  end
+  
+  protected
+
+  def validate!
+    raise 'Incorrect number format' if @number !~ NUMBER_FORMAT
+    raise 'Incorrect type' if @type !~ TYPE_FORMAT 
   end
 end
