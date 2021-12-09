@@ -42,7 +42,8 @@ class Interface
 
     puts 'Show info:'.light_blue
     puts "\tPass '5a' to list available stations;"
-    puts "\tPass '5b' to list trains at the station."
+    puts "\tPass '5b' to list trains at the station;"
+    puts "\tPass '5c' to list trains cars."
 
     puts "\nPass 'exit' to stop."
 
@@ -90,6 +91,8 @@ class Interface
       available_stations
     when '5b'
       trains_at_station
+    when '5c'
+      trains_cars
     when 'commands'
       show_commands
     else
@@ -238,20 +241,26 @@ class Interface
     trains[train_num].backward if action_possible(trains, train_num)
   end
 
-  def add_cars_to_cargo(volume)
+  def add_cars_to_cargo
     available_trains_type('cargo')
 
+    puts 'Assign volume:'.cyan
+    volume = gets.chomp.to_i
+    
     puts 'Select train:'.cyan
     train_num = gets.chomp.to_i
-
+    
     @trains_type[train_num].add_car(CargoCar.new(volume)) if action_possible(@trains_type, train_num)
   rescue RuntimeError => e
     puts e.inspect
     retry
   end
-
-  def add_cars_to_pass(seats_amount)
+  
+  def add_cars_to_pass
     available_trains_type('passenger')
+    
+    puts 'Assign volume:'.cyan
+    seats_amount = gets.chomp.to_i
 
     puts 'Select train:'.cyan
     train_num = gets.chomp.to_i
@@ -291,7 +300,19 @@ class Interface
 
     puts 'Select train:'.cyan
     train_num = gets.chomp.to_i
-
+    
     @trains_type[train_num].delete_car if action_possible(@trains_type, train_num)
   end
+  
+  def trains_cars
+    available_trains
+    puts 'Select train:'.cyan
+    train_num = gets.chomp.to_i
+
+    if @trains[train_num].instance_of? PassengerTrain
+      @trains[train_num].all_cars { |car| puts "Car: #{car.type} #{car.free_seats} #{car.taken_seats}" }
+    else
+      @trains[train_num].all_cars { |car| puts "Car: #{car.type} #{car.free_volume} #{car.used_volume}" }
+    end
+  end 
 end

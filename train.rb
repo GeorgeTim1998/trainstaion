@@ -89,7 +89,7 @@ class Train
   end
   
   def all_cars(&block)
-    @cars.each { |train| block.call(train) if block_given? }
+    @cars.each { |car| block.call(car) if block_given? }
   end 
 
   protected
