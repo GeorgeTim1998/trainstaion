@@ -11,7 +11,7 @@ class CargoCar < Car
   end
 
   def occupy_volume(volume)
-    @occupied_volume = volume if @volume.is_a?(Integer) && volume.positive && volume < @volume
+    @occupied_volume = volume if @volume.is_a?(Integer) && volume.positive? && volume < @volume
   end
   
   def used_volume

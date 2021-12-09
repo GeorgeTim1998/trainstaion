@@ -35,6 +35,8 @@ class Interface
     puts "\tPass '3ap' to add cars to passenger train;"
     puts "\tPass '3bc' to delete cars from cargo train;"
     puts "\tPass '3bp' to delete cars from passenger train;"
+    puts "\tPass '3cc' to occupy volume in a cargo car;"
+    puts "\tPass '3cp' to take a seat in a passenger car;"
 
     puts 'Move trains:'.light_blue
     puts "\tPass '4a' to move train forward;"
@@ -83,6 +85,10 @@ class Interface
       del_cars_from_cargo
     when '3bp'
       del_cars_from_pass
+    when '3cc'
+      occupy_volume
+    when '3cp'
+      take_seat
     when '4a'
       train_go
     when '4b'
@@ -192,7 +198,12 @@ class Interface
 
   def available_trains
     puts 'Available trains:'.cyan
-    trains.each_with_index { |item, index| puts "index: #{index} for #{item.inspect}" }
+    @trains.each_with_index { |item, index| puts "index: #{index} for #{item.inspect}" }
+  end
+
+  def available_cars(train)
+    puts 'Available cars:'.cyan
+    train.cars.each_with_index { |item, index| puts "index: #{index} for #{item.inspect}" }
   end
 
   def available_trains_type(type)
@@ -207,10 +218,10 @@ class Interface
 
   def assign_route
     available_trains
-    available_routes
-
     puts 'Select train:'.cyan
     train_num = gets.chomp.to_i
+
+    available_routes
     puts 'Select route:'.cyan
     route_num = gets.chomp.to_i
 
@@ -308,11 +319,43 @@ class Interface
     available_trains
     puts 'Select train:'.cyan
     train_num = gets.chomp.to_i
-
+    
     if @trains[train_num].instance_of? PassengerTrain
       @trains[train_num].all_cars { |car| puts "Car: #{car.type} #{car.free_seats} #{car.taken_seats}" }
     else
       @trains[train_num].all_cars { |car| puts "Car: #{car.type} #{car.free_volume} #{car.used_volume}" }
     end
   end 
+  
+  def occupy_volume
+    train_num = train_info_and_request
+    
+    available_cars(@trains[train_num])
+    puts 'Select car:'.cyan
+    car_num = gets.chomp.to_i
+    
+    puts 'Volume to occupy:'.cyan
+    volume = gets.chomp.to_i
+
+    @trains[train_num].cars[car_num].occupy_volume(volume)
+  end
+  
+  def take_seat
+    train_num = train_info_and_request
+    
+    available_cars(@trains[train_num])
+    puts 'Select car:'.cyan
+    car_num = gets.chomp.to_i
+
+    puts 'Set to occupy:'.cyan
+    volume = gets.chomp.to_i
+  
+    @trains[train_num].cars[car_num].occupy_volume(volume)
+  end
+
+  def train_info_and_request
+    available_trains
+    puts 'Select train:'.cyan
+    gets.chomp.to_i
+  end
 end
