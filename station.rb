@@ -35,15 +35,15 @@ class Station
   end 
 
   def arrive(train)
-    trains << train
+    @trains << train
   end
   
   def depart(train)
-    trains.delete(train)
+    @trains.delete(train)
   end
   
   def trains_by_type(type)
-    trains.select { |train| train.type == type }
+    @trains.select { |train| train.type == type }
   end
   
   def trains_by_type_amount(type)
