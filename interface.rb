@@ -270,7 +270,7 @@ class Interface
   def add_cars_to_pass
     available_trains_type('passenger')
     
-    puts 'Assign volume:'.cyan
+    puts 'Assign seats amount:'.cyan
     seats_amount = gets.chomp.to_i
 
     puts 'Select train:'.cyan
@@ -346,11 +346,8 @@ class Interface
     available_cars(@trains[train_num])
     puts 'Select car:'.cyan
     car_num = gets.chomp.to_i
-
-    puts 'Set to occupy:'.cyan
-    volume = gets.chomp.to_i
   
-    @trains[train_num].cars[car_num].occupy_volume(volume)
+    @trains[train_num].cars[car_num].take_seat
   end
 
   def train_info_and_request
