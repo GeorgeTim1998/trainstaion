@@ -330,24 +330,24 @@ class Interface
   def occupy_volume
     train_num = train_info_and_request
     
-    available_cars(@trains[train_num])
+    available_cars(@trains[train_num]) if action_possible(@train, train_num)
     puts 'Select car:'.cyan
     car_num = gets.chomp.to_i
     
     puts 'Volume to occupy:'.cyan
     volume = gets.chomp.to_i
 
-    @trains[train_num].cars[car_num].occupy_volume(volume)
+    @trains[train_num].cars[car_num].occupy_volume(volume) if action_possible(@trains[train_num].cars, car_num)
   end
   
   def take_seat
     train_num = train_info_and_request
     
-    available_cars(@trains[train_num])
+    available_cars(@trains[train_num]) if action_possible(@train, train_num)
     puts 'Select car:'.cyan
     car_num = gets.chomp.to_i
   
-    @trains[train_num].cars[car_num].take_seat
+    @trains[train_num].cars[car_num].take_seat if action_possible(@trains[train_num].cars, car_num)
   end
 
   def train_info_and_request
