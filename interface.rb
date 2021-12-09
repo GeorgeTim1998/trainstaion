@@ -269,7 +269,12 @@ class Interface
     station_select = gets.chomp
 
     trains_select = trains.select { |train| train.curr_station == station_select }
-    puts trains_select.inspect
+    
+    show_trains(trains_select) { |train| puts "Train: #{train.number} #{train.type} #{train.cars.length}" }
+  end
+
+  def show_trains(trains_select, &block)
+    trains_select.each{ |train| block.call(train) }
   end
 
   def del_cars_from_cargo
