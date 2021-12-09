@@ -119,7 +119,7 @@ class Interface
     stations << Station.new(station_name)
     puts "Station #{stations[-1].inspect} created!".green
   rescue RuntimeError => e
-    puts e.inspect
+    puts e.inspect.red
     retry
   end
   
@@ -127,7 +127,7 @@ class Interface
     trains << CargoTrain.new(input_train)
     puts "Cargo train #{trains[-1].inspect} created!".green
   rescue RuntimeError => e
-    puts e.inspect
+    puts e.inspect.red
     retry
   end
   
@@ -135,7 +135,7 @@ class Interface
     trains << PassengerTrain.new(input_train)
     puts "Passenger train #{trains[-1].inspect} created!".green
   rescue RuntimeError => e
-    puts e.inspect
+    puts e.inspect.red
     retry
   end
   
@@ -157,7 +157,7 @@ class Interface
     routes << Route.new(destination, departure)
     puts "Route #{routes[-1].inspect} created!".green
   rescue RuntimeError => e
-    puts e.inspect
+    puts e.inspect.red
     retry
   end
 
@@ -252,7 +252,7 @@ class Interface
     
     @trains_type[train_num].add_car(CargoCar.new(volume)) if action_possible(@trains_type, train_num)
   rescue RuntimeError => e
-    puts e.inspect
+    puts e.inspect.red
     retry
   end
   
@@ -267,7 +267,7 @@ class Interface
 
     @trains_type[train_num].add_car(PassCar.new(seats_amount)) if action_possible(@trains_type, train_num)
   rescue RuntimeError => e
-    puts e.inspect
+    puts e.inspect.red
     retry
   end
 
