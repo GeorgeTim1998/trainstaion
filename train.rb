@@ -1,7 +1,7 @@
 require_relative 'manufacturer_module'
 require_relative 'instance_counter'
 class Train
-  attr_reader :type, :number
+  attr_reader :type, :number, :cars
   attr_accessor :speed, :curr_station
   
   NUMBER_FORMAT = /(^[a-z\d]{3}$|^[a-z\d]{3}-{1}[a-z\d]{2})/
@@ -88,6 +88,10 @@ class Train
     @type == car.type
   end
   
+  def all_cars(&block)
+    @cars.each { |car| block.call(car) if block_given? }
+  end 
+
   protected
 
   def validate!

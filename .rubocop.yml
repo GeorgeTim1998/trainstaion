@@ -24,3 +24,15 @@ Lint/EmptyFile:
 
 Style/MutableConstant:
   Enabled: false
+
+Metrics/ClassLength:
+  Enabled: false
+
+Metrics/AbcSize:
+  Enabled: false
+
+Metrics/MethodLength:
+  Enabled: false
+
+Lint/MissingSuper:
+  Enabled: false
