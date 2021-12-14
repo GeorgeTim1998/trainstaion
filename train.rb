@@ -1,7 +1,6 @@
 require_relative 'manufacturer_module'
 require_relative 'instance_counter'
 require_relative 'validation'
-require_relative 'accessors'
 class Train
   attr_reader :type, :number, :cars, :speed
   attr_accessor :curr_station
