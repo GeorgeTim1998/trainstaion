@@ -1,5 +1,6 @@
 require_relative 'manufacturer_module'
 require_relative 'instance_counter'
+require_relative 'validation'
 class Train
   attr_reader :type, :number, :cars
   attr_accessor :speed, :curr_station
@@ -9,6 +10,8 @@ class Train
   include Manufacturer
   extend InstanceCount::ClassMethods
   include InstanceCount::InstanceMethods
+  extend Validation::ClassMethods
+  include Validation::InstanceMethods
   
   class << self
     attr_accessor :count
@@ -19,7 +22,9 @@ class Train
   def self.find(number)
     @@all_trains.find { |train| train.number == number }
   end
-  
+
+  validate(:@number, :format, NUMBER_FORMAT)
+
   def initialize(number, type)
     @number = number
     @type = type
@@ -30,12 +35,12 @@ class Train
     register_instance
   end
   
-  def valid?
-    validate!
-    true
-  rescue RuntimeError
-    false
-  end
+  # def valid?
+  #   validate!
+  #   true
+  # rescue RuntimeError
+  #   false
+  # end
   
   def stop
     self.speed = 0
@@ -94,8 +99,8 @@ class Train
 
   protected
 
-  def validate!
-    raise 'Incorrect number format' if @number !~ NUMBER_FORMAT
-    raise 'Incorrect type' if @type !~ TYPE_FORMAT 
-  end
+  # def validate!
+  #   raise 'Incorrect number format' if @number !~ NUMBER_FORMAT
+  #   raise 'Incorrect type' if @type !~ TYPE_FORMAT 
+  # end
 end

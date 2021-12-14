@@ -10,14 +10,14 @@ module Validation
     end
 
     def validate(attribute, type, *parameters)
-      hash = { type: type, attribute: attribute, parameters: parameters }
-      validations.push(hash)
+      validations << { type: type, attribute: attribute, parameters: parameters }
     end
   end
 
   module InstanceMethods
     def validate!
       self.class.validations.each do |validation|
+        puts 'beepbeep'
         send(validation[:type], instance_variable_get(validation[:attribute]), validation[:parameters])
       end
     end
