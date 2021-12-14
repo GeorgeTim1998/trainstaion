@@ -1,25 +1,27 @@
 require_relative 'instance_counter'
+require_relative 'validation'
 class Route
   extend InstanceCount::ClassMethods
   include InstanceCount::InstanceMethods
+  extend Validation::ClassMethods
+  include Validation::InstanceMethods
   
   class << self
     attr_accessor :count
   end
   NAME_LENGTH = 4
-  attr_reader :stations
+  attr_reader :stations, :departure, :destination
+
+  validate(:@departure, :type, String)
+  validate(:@destination, :type, String)
+  validate(:@departure, :word_length, NAME_LENGTH)
+  validate(:@destination, :word_length, NAME_LENGTH)
 
   def initialize(departure, destination)
-    @stations = [departure, destination]
+    @departure = departure
+    @destination = destination
+    @stations = [@departure, @destination]
     validate!
-  end
-
-  
-  def valid?
-    validate!
-    true
-  rescue RuntimeError
-    false
   end
   
   def add_waypoint(waypoint)
@@ -32,11 +34,5 @@ class Route
   
   def show_route
     puts stations
-  end
-  
-  protected
-  
-  def validate!
-    raise "Incorrect name length. Must be >= #{NAME_LENGTH}" if @stations[0].length < NAME_LENGTH || @stations[1].length < NAME_LENGTH
   end
 end

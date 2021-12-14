@@ -31,7 +31,7 @@ module Validation
     end
 
     def type(attribute, attr_type)
-      raise "'Type' validation failed: value type is not the same as expected" if attribute.class != attr_type[0]
+      raise "'Type' validation failed: value type is not the same as expected. Must be 'String'" if attribute.class != attr_type[0]
     end
     
     def word_match(attribute, regexp)
