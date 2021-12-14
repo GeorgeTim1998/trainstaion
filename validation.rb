@@ -38,6 +38,10 @@ module Validation
       raise "'Word match' validation failed: word isn't of the expected value" if attribute !~ regexp[0]
     end
 
+    def word_length(attribute, word_length)
+      raise "Incorrect name length. Must be exactly #{word_length[0]} characters long." if attribute.length != word_length[0]
+    end
+
     def valid?
       validate!
       true
