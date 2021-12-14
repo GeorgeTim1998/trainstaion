@@ -1,24 +1,17 @@
+require_relative 'validation'
 class Car
   # с этими методами взаимодействует только класс Interface. От пользователя надо отгородиться
   attr_reader :type
   
+  extend Validation::ClassMethods
+  include Validation::InstanceMethods
+
   TYPE_FORMAT = /^cargo$|^passenger$/
+
+  validate(:@type, :format, TYPE_FORMAT)
 
   def initialize(type)
     @type = type
     validate!
-  end
-
-  def valid?
-    validate!
-    true
-  rescue RuntimeError
-    false
-  end
-
-  protected 
-
-  def validate!
-    raise 'Incorrect type' if @type !~ TYPE_FORMAT 
   end
 end
