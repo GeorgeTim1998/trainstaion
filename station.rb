@@ -1,10 +1,8 @@
 require_relative 'instance_counter'
 require_relative 'validation'
 class Station
-  extend InstanceCount::ClassMethods
-  include InstanceCount::InstanceMethods
-  extend Validation::ClassMethods
-  include Validation::InstanceMethods
+  include InstanceCount
+  include Validation
 
   attr_reader :trains, :name
 

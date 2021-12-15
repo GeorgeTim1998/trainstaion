@@ -1,10 +1,8 @@
 require_relative 'instance_counter'
 require_relative 'validation'
 class Route
-  extend InstanceCount::ClassMethods
-  include InstanceCount::InstanceMethods
-  extend Validation::ClassMethods
-  include Validation::InstanceMethods
+  include InstanceCount
+  include Validation
   
   class << self
     attr_accessor :count

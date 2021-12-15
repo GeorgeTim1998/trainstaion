@@ -1,4 +1,9 @@
 module Accessors
+  def self.included(base)
+    base.extend ClassMethods
+    base.send :include, InstanceMethods
+  end
+  
   module ClassMethods
     def attr_accessor_with_history(*names)
       names.each do |name|

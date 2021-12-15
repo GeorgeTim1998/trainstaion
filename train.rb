@@ -1,6 +1,7 @@
 require_relative 'manufacturer_module'
 require_relative 'instance_counter'
 require_relative 'validation'
+require_relative 'accessors'
 class Train
   attr_reader :type, :number, :cars, :speed
   attr_accessor :curr_station
@@ -9,10 +10,8 @@ class Train
   TYPE_FORMAT = /^cargo$|^passenger$/
   include Manufacturer
   include Accessors
-  extend InstanceCount::ClassMethods
-  include InstanceCount::InstanceMethods
-  extend Validation::ClassMethods
-  include Validation::InstanceMethods
+  include InstanceCount
+  include Validation
   
   class << self
     attr_accessor :count
