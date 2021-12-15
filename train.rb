@@ -1,14 +1,17 @@
 require_relative 'manufacturer_module'
 require_relative 'instance_counter'
+require_relative 'validation'
+require_relative 'accessors'
 class Train
-  attr_reader :type, :number, :cars
-  attr_accessor :speed, :curr_station
+  attr_reader :type, :number, :cars, :speed
+  attr_accessor :curr_station
   
   NUMBER_FORMAT = /(^[a-z\d]{3}$|^[a-z\d]{3}-{1}[a-z\d]{2})/
   TYPE_FORMAT = /^cargo$|^passenger$/
   include Manufacturer
-  extend InstanceCount::ClassMethods
-  include InstanceCount::InstanceMethods
+  include Accessors
+  include InstanceCount
+  include Validation
   
   class << self
     attr_accessor :count
@@ -19,24 +22,27 @@ class Train
   def self.find(number)
     @@all_trains.find { |train| train.number == number }
   end
-  
+
+  validate :number, :format, NUMBER_FORMAT
+  validate :type, :word_match, TYPE_FORMAT
+  validate :speed, :non_negativity
+
   def initialize(number, type)
     @number = number
     @type = type
     @cars = []
     @route = nil
+    @speed = 0
     @@all_trains << self
     validate!
     register_instance
   end
   
-  def valid?
+  def speed=(speed)
+    @speed = speed
     validate!
-    true
-  rescue RuntimeError
-    false
-  end
-  
+  end 
+
   def stop
     self.speed = 0
   end
@@ -91,11 +97,4 @@ class Train
   def all_cars(&block)
     @cars.each { |car| block.call(car) if block_given? }
   end 
-
-  protected
-
-  def validate!
-    raise 'Incorrect number format' if @number !~ NUMBER_FORMAT
-    raise 'Incorrect type' if @type !~ TYPE_FORMAT 
-  end
 end
