@@ -23,9 +23,9 @@ class Train
     @@all_trains.find { |train| train.number == number }
   end
 
-  validate :@number, :format, NUMBER_FORMAT
-  validate :@type, :word_match, TYPE_FORMAT
-  validate :@speed, :non_negativity
+  validate :number, :format, NUMBER_FORMAT
+  validate :type, :word_match, TYPE_FORMAT
+  validate :speed, :non_negativity
 
   def initialize(number, type)
     @number = number

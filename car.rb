@@ -7,7 +7,7 @@ class Car
 
   TYPE_FORMAT = /^cargo$|^passenger$/
 
-  validate(:@type, :format, TYPE_FORMAT)
+  validate :type, :format, TYPE_FORMAT
 
   def initialize(type)
     @type = type

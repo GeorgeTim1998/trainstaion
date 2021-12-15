@@ -10,7 +10,7 @@ module Validation
     end
 
     def validate(attribute, type, *parameters)
-      validations << { type: type, attribute: attribute, parameters: parameters }
+      validations << { type: type, attribute: "@#{attribute}".to_sym, parameters: parameters }
     end
   end
 
