@@ -10,10 +10,10 @@ class Route
   NAME_LENGTH = 4
   attr_reader :stations, :departure, :destination
 
-  validate(:@departure, :type, String)
-  validate(:@destination, :type, String)
-  validate(:@departure, :word_length, NAME_LENGTH)
-  validate(:@destination, :word_length, NAME_LENGTH)
+  validate :@departure, :type, String
+  validate :@destination, :type, String
+  validate :@departure, :word_length, NAME_LENGTH
+  validate :@destination, :word_length, NAME_LENGTH
 
   def initialize(departure, destination)
     @departure = departure

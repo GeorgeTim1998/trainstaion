@@ -8,8 +8,8 @@ class Station
 
   NAME_LENGTH = 6  
 
-  validate(:@name, :type, String)
-  validate(:@name, :word_length, NAME_LENGTH)
+  validate :@name, :type, String
+  validate :@name, :word_length, NAME_LENGTH
 
   class << self
     attr_accessor :count
