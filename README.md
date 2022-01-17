@@ -45,6 +45,9 @@ cntr+shift+arrow
 <!-- Add cursor up/down -->
 shift+alt+arrow #esc to cansel
 
+## vs code
+Чтобы сделать 2 пробела отступ по умолчанию нужно зайти в настройки и найти "Tab Size" и прописать там 2 
+
 ## Lesson 1. Foundation of object OOP
 
 Let’s say that you have a class with instance variables & you want to expose them to the outside world.
