@@ -1,12 +1,12 @@
 ## Project name: Train Station
 It is a railway station management application with text interface that will allow you to manage stations, receive and send trains, display information about them, etc.
 Project allowes to:
-- Create station
-- Create train:
+- Create train stations
+- Create trains:
 <!-- Create train -->
     create cargo train;
     create passenger train;
-- Create route:
+- Create routes:
 <!-- Create route -->
     add waypoint to route;
     delete a waypoint from route;
